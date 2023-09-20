@@ -1,0 +1,26 @@
+#define PIN_LED 13
+unsigned int count;
+int toggle = LOW;  // 초기 상태는 LOW로 설정
+
+void setup() {
+  pinMode(PIN_LED, OUTPUT);
+  Serial.begin(115200);
+  count=0;
+  digitalWrite(PIN_LED,toggle);
+}
+
+void loop() {
+  Serial.println(++count);
+  toggle = toggle_state(toggle); // toggle_state 함수를 사용하여 LED 상태 변경
+  digitalWrite(PIN_LED, toggle); // 변경된 상태를 LED에 적용
+  delay(1000); // 1초 대기
+}
+
+int toggle_state(int toggle) {
+  if (toggle == LOW) {
+    toggle=HIGH;  // LOW 상태일 때 HIGH로 변경
+  } else {
+    toggle=LOW;   // HIGH 상태일 때 LOW로 변경
+  }
+  return toggle;
+}
